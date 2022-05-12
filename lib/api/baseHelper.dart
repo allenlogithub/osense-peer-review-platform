@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 
 import 'package:peerrev/api/exception.dart';
 
+// for json return
 class ApiBaseHelper {
   Future<dynamic> get(String url) async {
     var responseJson;
@@ -33,5 +34,20 @@ dynamic _returnResponse(http.Response response) {
     default:
       throw FetchDataException(
           'Error occured while Communication with Server with StatusCode : ${response.statusCode}');
+  }
+}
+
+// for string return
+class ApiBaseHelper2 {
+  Future<String> get(String url) async {
+    String respStr = '';
+    try {
+      final resp = await http.get(Uri.parse(url));
+      respStr = resp.body.toString();
+    } on Exception {
+      throw FetchDataException('');
+    }
+
+    return respStr;
   }
 }

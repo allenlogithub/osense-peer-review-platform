@@ -1,6 +1,5 @@
-// import 'dart:io';
-
 import 'package:peerrev/api/exception.dart';
+import 'package:peerrev/api/baseHelper.dart';
 
 class Constants {
   String mainServerAddress =
@@ -8,29 +7,23 @@ class Constants {
 }
 
 class Init {
-  static Future initServices() async {
+  bool isConnected = true;
+
+  Future<bool> initServices() async {
     await _backendService();
+
+    return isConnected;
   }
 
   // check backend service
-  static _backendService() async {
-    // // seem not support by web.......
-    // Socket.connect(Constants().mainServerAddress, 80,
-    //         timeout: const Duration(seconds: 5))
-    //     .then((socket) {
-    //   print("Success");
-    //   socket.destroy();
-    // }).catchError((error) {
-    //   print("Exception on Socket " + error.toString());
-    //   throw TimeoutException('No Backend connection');
-    // });
-
-    print('checking backend service');
-    await Future.delayed(const Duration(seconds: 3));
-    print('backend service is up');
+  _backendService() async {
+    try {
+      final resp =
+          await ApiBaseHelper2().get(Constants().mainServerAddress + '/health');
+      isConnected = true;
+    } on FetchDataException {
+      await Future.delayed(const Duration(seconds: 3));
+      isConnected = false;
+    }
   }
-}
-
-class TimeoutException extends AppException {
-  TimeoutException([String message = '']) : super(message, 'Timeout: ');
 }
