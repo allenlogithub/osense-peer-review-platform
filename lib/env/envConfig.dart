@@ -4,6 +4,8 @@ import 'package:peerrev/api/baseHelper.dart';
 class Constants {
   String mainServerAddress =
       const String.fromEnvironment("MAIN_SERVER_ADDRESS");
+  String googleSignInClientId =
+      const String.fromEnvironment("GOOGLE_SIGN_IN_CLIENT_ID");
 }
 
 class Init {
