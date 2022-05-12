@@ -22,7 +22,6 @@ class Init {
     try {
       final resp =
           await ApiBaseHelper2().get(Constants().mainServerAddress + '/health');
-      isConnected = true;
     } on FetchDataException {
       await Future.delayed(const Duration(seconds: 3));
       isConnected = false;
