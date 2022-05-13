@@ -2,9 +2,9 @@ import 'package:peerrev/api/exception.dart';
 import 'package:peerrev/api/baseHelper.dart';
 
 class Constants {
-  String mainServerAddress =
+  static String mainServerAddress =
       const String.fromEnvironment("MAIN_SERVER_ADDRESS");
-  String googleSignInClientId =
+  static String googleSignInClientId =
       const String.fromEnvironment("GOOGLE_SIGN_IN_CLIENT_ID");
 }
 
@@ -21,7 +21,7 @@ class Init {
   _backendService() async {
     try {
       final resp =
-          await ApiBaseHelper2().get(Constants().mainServerAddress + '/health');
+          await ApiBaseHelper2().get(Constants.mainServerAddress + '/health');
     } on FetchDataException {
       await Future.delayed(const Duration(seconds: 3));
       isConnected = false;

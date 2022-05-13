@@ -6,7 +6,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:peerrev/env/envConfig.dart';
 
 GoogleSignIn _googleSignIn = GoogleSignIn(
-  clientId: Constants().googleSignInClientId,
+  clientId: Constants.googleSignInClientId,
   scopes: <String>[
     'email',
   ],

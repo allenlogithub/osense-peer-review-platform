@@ -6,7 +6,7 @@ class UserResp {
   final ApiBaseHelper _helper = ApiBaseHelper();
 
   Future<UserListModel> getUserList() async {
-    final resp = await _helper.get(Constants().mainServerAddress + "/user/all");
+    final resp = await _helper.get(Constants.mainServerAddress + "/user/all");
     return UserListModel.fromJson(resp);
   }
 }
