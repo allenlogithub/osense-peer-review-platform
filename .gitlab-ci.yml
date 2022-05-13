@@ -1,14 +1,15 @@
 stages:
-  - publish
+  - build
+  - deploy
 
 variables:
   PROJ_VERSION: v0.0.1
   TAG_LATEST: devops.oexpo.io/$PROJECT_NAME/$IMAGE_NAME:latest
   TAG_CURR: devops.oexpo.io/$PROJECT_NAME/$IMAGE_NAME:$PROJ_VERSION
 
-publish-flutter:
+build:
   image: cirrusci/flutter:2.10.5
-  stage: publish
+  stage: build
   tags:
     - deployment
   before_script:
@@ -17,3 +18,17 @@ publish-flutter:
     - flutter build web --dart-define=MAIN_SERVER_ADDRESS=$MAIN_SERVER_ADDRESS --dart-define=GOOGLE_SIGN_IN_CLIENT_ID=$GOOGLE_SIGN_IN_CLIENT_ID 
   only:
     - main
+  artifacts:
+    paths:
+      - build/web
+
+deploy:
+  stage: deploy
+  tags:
+    - deployment
+  script:
+    - echo "$AWS_VM_CER" >> peerreview.crt
+    - chmod 400 peerreview.crt
+    - ssh -i peerreview.crt -o StrictHostKeyChecking=no $AWS_VM "rm -rf /home/ubuntu/peer-review-build/dev/*"
+    - ssh -i peerreview.crt -o StrictHostKeyChecking=no $AWS_VM "ls -lhta /home/ubuntu/peer-review-build/dev/"
+    - scp -r -i peerreview.crt -o StrictHostKeyChecking=no build/web/* $AWS_VM:/home/ubuntu/peer-review-build/dev/
