@@ -43,10 +43,12 @@ class SignInPageState extends State<SignInPage> {
       print(error);
     }
     // TODO: pass info to the srv
-    print('accessToken: ' + googleKey.accessToken);
-    print('idToken: ' + googleKey.idToken);
-    print('email: ' + res.email);
-    print('id: ' + res.id);
+    // BUG:
+    //   https://github.com/dart-lang/sdk/issues/46373
+    // NEED to PREVENT the FOLLOWING:
+    //   print('accessToken: ' + googleKey.accessToken.toString());
+    print(googleKey.accessToken.toString());
+    print(googleKey.idToken.toString());
   }
 
   Future<void> _handleSignOut() => _googleSignIn.disconnect();
