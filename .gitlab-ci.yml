@@ -1,5 +1,6 @@
 stages:
   - build
+  - publish-fileserver
   - deploy
 
 variables:
@@ -7,20 +8,44 @@ variables:
   TAG_LATEST: devops.oexpo.io/$PROJECT_NAME/$IMAGE_NAME:latest
   TAG_CURR: devops.oexpo.io/$PROJECT_NAME/$IMAGE_NAME:$PROJ_VERSION
 
-build:
-  image: cirrusci/flutter:2.10.5
+build-flutter:
+  image: cirrusci/flutter:3.0.0
   stage: build
   tags:
     - deployment
   before_script:
     - flutter pub get
   script:
-    - flutter build web --dart-define=MAIN_SERVER_ADDRESS=$MAIN_SERVER_ADDRESS --dart-define=GOOGLE_SIGN_IN_CLIENT_ID=$GOOGLE_SIGN_IN_CLIENT_ID 
+    - flutter build web --dart-define=MAIN_SERVER_ADDRESS=$MAIN_SERVER_ADDRESS --dart-define=GOOGLE_SIGN_IN_CLIENT_ID=$GOOGLE_SIGN_IN_CLIENT_ID
+    - cp -r build/web fileServer
   only:
     - main
   artifacts:
     paths:
       - build/web
+      - fileServer
+
+build-flutter-server:
+  image: docker:stable
+  stage: publish-fileserver
+  tags:
+    - deployment
+  services:
+    - name: docker:dind
+      entrypoint: ["dockerd-entrypoint.sh"]
+      command: ["--insecure-registry", "https://devops.oexpo.io"]
+  script:
+    - cd fileServer
+    - docker build -t $TAG_CURR -t $TAG_LATEST --build-arg PROJ_NAME=$IMAGE_NAME .
+    - docker login $HARBOR_SERVER -u $HARBOR_USERNAME -p $HARBOR_PASSWORD
+    - docker push $TAG_CURR
+    - docker push $TAG_LATEST
+  only:
+    - main
+  artifacts:
+    paths:
+      - build/web
+      - fileServer/srv.go
 
 deploy:
   stage: deploy
