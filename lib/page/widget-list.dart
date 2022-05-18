@@ -1,14 +1,46 @@
 import 'package:flutter/material.dart';
 
 import 'package:peerrev/widget/button.dart';
+import 'package:peerrev/widget/textForm.dart';
 import 'package:peerrev/util/layout.dart';
 import 'package:peerrev/util/style.dart' as style;
 
-class WidgetListPage extends StatelessWidget {
+class WidgetListPage extends StatefulWidget {
   const WidgetListPage({Key? key}) : super(key: key);
+
+  @override
+  _WidgetListPageState createState() => _WidgetListPageState();
+}
+
+class _WidgetListPageState extends State<WidgetListPage> {
+  late TextEditingController _controller1, _controller2, _controller3;
 
   void func(int num) {
     print(num);
+  }
+
+  void func2(String s) {
+    print(s);
+  }
+
+  void func3(String s, t) {
+    print(s + ' & ' + t);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _controller1 = TextEditingController();
+    _controller2 = TextEditingController();
+    _controller3 = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _controller1.dispose();
+    _controller2.dispose();
+    _controller3.dispose();
+    super.dispose();
   }
 
   @override
@@ -56,6 +88,51 @@ class WidgetListPage extends StatelessWidget {
               callback: () => func(5),
               icon: Icons.baby_changing_station_sharp,
               isFilled: true,
+            ),
+            Column(
+              children: [
+                TextForm(
+                  controller: _controller1,
+                  color: style.ThemeColor.primary,
+                ),
+                const SizedBox(
+                  height: 20.0,
+                ),
+                Button(
+                  color: Colors.amber,
+                  text: 'Submit',
+                  callback: () => func2(_controller1.text),
+                  icon: Icons.baby_changing_station_sharp,
+                  isFilled: true,
+                ),
+              ],
+            ),
+            Column(
+              children: [
+                TextForm(
+                  controller: _controller2,
+                  color: style.ThemeColor.primary,
+                  labelText: 'label',
+                ),
+                const SizedBox(
+                  height: 20.0,
+                ),
+                TextForm(
+                  controller: _controller3,
+                  color: style.ThemeColor.primary,
+                  icon: Icons.abc,
+                ),
+                const SizedBox(
+                  height: 20.0,
+                ),
+                Button(
+                  color: Colors.amber,
+                  text: 'Submit',
+                  callback: () => func3(_controller2.text, _controller3.text),
+                  icon: Icons.baby_changing_station_sharp,
+                  isFilled: true,
+                ),
+              ],
             ),
           ],
         ),
