@@ -7,6 +7,8 @@ class TextForm extends StatelessWidget {
   final Color color;
   final IconData? icon;
   final String? labelText;
+  final String? helperText;
+  final int? helperMaxLines;
   final TextEditingController controller;
 
   const TextForm({
@@ -14,6 +16,8 @@ class TextForm extends StatelessWidget {
     required this.color,
     this.icon,
     this.labelText,
+    this.helperText,
+    this.helperMaxLines,
     required this.controller,
   }) : super(key: key);
 
@@ -31,8 +35,11 @@ class TextForm extends StatelessWidget {
           borderRadius:
               BorderRadius.all(Radius.circular(Layout.commonBorderRadius)),
         ),
-        hintText: labelText ?? '',
+        hintText: labelText,
         hintStyle: TextStyle(color: style.GrayColor.grey),
+        helperText: helperText,
+        helperMaxLines: helperMaxLines ?? 3,
+        helperStyle: TextStyle(color: color),
         suffixIcon: Icon(
           icon,
           color: color,

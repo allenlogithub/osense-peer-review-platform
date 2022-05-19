@@ -94,9 +94,10 @@ class _WidgetListPageState extends State<WidgetListPage> {
                 TextForm(
                   controller: _controller1,
                   color: style.ThemeColor.primary,
+                  helperText: 'message: msgmsgmsgmsgmsgmsgmsgmsg',
                 ),
                 const SizedBox(
-                  height: 20.0,
+                  height: 10.0,
                 ),
                 Button(
                   color: Colors.amber,
@@ -113,18 +114,16 @@ class _WidgetListPageState extends State<WidgetListPage> {
                   controller: _controller2,
                   color: style.ThemeColor.primary,
                   labelText: 'label',
+                  helperText: 'message: msgmsgmsgmsgmsgmsgmsgmsg',
+                  helperMaxLines: 1,
                 ),
-                const SizedBox(
-                  height: 20.0,
-                ),
+                const Spacer(),
                 TextForm(
                   controller: _controller3,
                   color: style.ThemeColor.primary,
                   icon: Icons.abc,
                 ),
-                const SizedBox(
-                  height: 20.0,
-                ),
+                const Spacer(),
                 Button(
                   color: Colors.amber,
                   text: 'Submit',
