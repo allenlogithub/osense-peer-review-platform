@@ -14,7 +14,10 @@ class WidgetListPage extends StatefulWidget {
 }
 
 class _WidgetListPageState extends State<WidgetListPage> {
-  late TextEditingController _controller1, _controller2, _controller3;
+  late TextEditingController _controller1,
+      _controller2,
+      _controller3,
+      _controller4;
   final List<dynamic> _items = [1, 'a', '#', 4, 'b', 'c', 'd'];
   late dynamic _selected = 1;
 
@@ -43,6 +46,7 @@ class _WidgetListPageState extends State<WidgetListPage> {
     _controller1 = TextEditingController();
     _controller2 = TextEditingController();
     _controller3 = TextEditingController();
+    _controller4 = TextEditingController();
   }
 
   @override
@@ -50,6 +54,7 @@ class _WidgetListPageState extends State<WidgetListPage> {
     _controller1.dispose();
     _controller2.dispose();
     _controller3.dispose();
+    _controller4.dispose();
     super.dispose();
   }
 
@@ -149,6 +154,26 @@ class _WidgetListPageState extends State<WidgetListPage> {
               callback: (_selected) => func4(_selected),
               color: style.ThemeColor.primary,
               icon: Icons.access_alarm,
+            ),
+            Column(
+              children: [
+                TextForm(
+                  color: style.ThemeColor.primary,
+                  controller: _controller4,
+                  maxLines: 7,
+                  icon: Icons.ac_unit,
+                ),
+                const SizedBox(
+                  height: 10.0,
+                ),
+                Button(
+                  color: Colors.amber,
+                  text: 'Submit',
+                  callback: () => func2(_controller4.text),
+                  icon: Icons.baby_changing_station_sharp,
+                  isFilled: true,
+                ),
+              ],
             ),
           ],
         ),

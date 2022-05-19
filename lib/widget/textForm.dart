@@ -9,6 +9,7 @@ class TextForm extends StatelessWidget {
   final String? labelText;
   final String? helperText;
   final int? helperMaxLines;
+  final int? maxLines;
   final TextEditingController controller;
 
   const TextForm({
@@ -18,13 +19,25 @@ class TextForm extends StatelessWidget {
     this.labelText,
     this.helperText,
     this.helperMaxLines,
+    this.maxLines,
     required this.controller,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    double iconYPosition = 0;
+    bool isTextArea = (maxLines != null);
+
+    if (isTextArea) {
+      if (maxLines! <= 1) {
+        throw InvalidInputException('TextForm:maxLines should greater than 1');
+      }
+      iconYPosition = maxLines! * 19 + 2;
+    }
+
     return TextField(
       controller: controller,
+      maxLines: maxLines,
       decoration: InputDecoration(
         border: OutlineInputBorder(
           borderRadius:
@@ -40,11 +53,39 @@ class TextForm extends StatelessWidget {
         helperText: helperText,
         helperMaxLines: helperMaxLines ?? 3,
         helperStyle: TextStyle(color: color),
-        suffixIcon: Icon(
-          icon,
-          color: color,
-        ),
+        suffixIcon: isTextArea
+            ? Column(
+                children: [
+                  SizedBox(
+                    height: iconYPosition,
+                  ),
+                  Icon(
+                    icon,
+                    color: color,
+                  ),
+                ],
+              )
+            : Icon(
+                icon,
+                color: color,
+              ),
       ),
     );
   }
+}
+
+class TextFormException implements Exception {
+  final _message;
+  final _prefix;
+
+  TextFormException([this._message, this._prefix]);
+
+  String toString() {
+    return '$_prefix$_message';
+  }
+}
+
+class InvalidInputException extends TextFormException {
+  InvalidInputException([String message = ''])
+      : super(message, 'Invalid input: ');
 }
