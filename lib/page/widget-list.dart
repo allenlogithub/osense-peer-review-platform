@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:peerrev/widget/button.dart';
 import 'package:peerrev/widget/textForm.dart';
+import 'package:peerrev/widget/selectForm.dart';
 import 'package:peerrev/util/layout.dart';
 import 'package:peerrev/util/style.dart' as style;
 
@@ -14,6 +15,8 @@ class WidgetListPage extends StatefulWidget {
 
 class _WidgetListPageState extends State<WidgetListPage> {
   late TextEditingController _controller1, _controller2, _controller3;
+  final List<dynamic> _items = [1, 'a', '#', 4, 'b', 'c', 'd'];
+  late dynamic _selected = 1;
 
   void func(int num) {
     print(num);
@@ -25,6 +28,13 @@ class _WidgetListPageState extends State<WidgetListPage> {
 
   void func3(String s, t) {
     print(s + ' & ' + t);
+  }
+
+  void func4(dynamic s) {
+    setState(() {
+      _selected = s;
+    });
+    print(_selected);
   }
 
   @override
@@ -132,6 +142,13 @@ class _WidgetListPageState extends State<WidgetListPage> {
                   isFilled: true,
                 ),
               ],
+            ),
+            SelectForm(
+              items: _items,
+              selected: _selected,
+              callback: (_selected) => func4(_selected),
+              color: style.ThemeColor.primary,
+              icon: Icons.access_alarm,
             ),
           ],
         ),
