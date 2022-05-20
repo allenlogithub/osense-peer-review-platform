@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:peerrev/util/formatChange.dart';
 
+import 'package:peerrev/util/formatChange.dart';
 import 'package:peerrev/widget/button.dart';
 import 'package:peerrev/widget/textForm.dart';
 import 'package:peerrev/widget/selectForm.dart';
@@ -9,7 +9,7 @@ import 'package:peerrev/util/style.dart' as style;
 import 'package:peerrev/widget/dateForm.dart';
 import 'package:peerrev/util/formatCheck.dart';
 import 'package:peerrev/widget/timeForm.dart';
-import 'package:peerrev/widget/NumberForm.dart';
+import 'package:peerrev/widget/numberForm.dart';
 
 class WidgetListPage extends StatefulWidget {
   const WidgetListPage({Key? key}) : super(key: key);

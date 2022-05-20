@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:peerrev/util/style.dart' as style;
-import 'package:peerrev/util/FormatCheck.dart';
+import 'package:peerrev/util/formatCheck.dart';
 import 'package:peerrev/util/layout.dart';
 
 class NumberForm extends StatelessWidget {
