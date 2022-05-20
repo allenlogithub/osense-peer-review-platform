@@ -9,4 +9,20 @@ class FormatCheck {
       return false;
     }
   }
+
+  static bool isBetweenNumbers(String stringInt, int maximum, minimum) {
+    try {
+      int.parse(stringInt);
+    } catch (e) {
+      return false;
+    }
+    if (int.parse(stringInt) > maximum) {
+      return false;
+    }
+    if (int.parse(stringInt) < minimum) {
+      return false;
+    }
+
+    return true;
+  }
 }

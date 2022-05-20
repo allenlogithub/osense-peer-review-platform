@@ -1,5 +1,5 @@
 class Layout {
-  static double commonPadding = 10.0;
+  static double commonPadding = 16.0;
   static double mainAxisSpacing = 10.0;
   static double crossAxisSpacing = 10.0;
   static double commonBorderWidth = 3.0;
