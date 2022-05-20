@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 import 'package:flutter/material.dart';
 
 import 'package:peerrev/widget/button.dart';
@@ -6,6 +8,7 @@ import 'package:peerrev/widget/selectForm.dart';
 import 'package:peerrev/util/layout.dart';
 import 'package:peerrev/util/style.dart' as style;
 import 'package:peerrev/widget/dateForm.dart';
+import 'package:peerrev/util/formatCheck.dart';
 
 class WidgetListPage extends StatefulWidget {
   const WidgetListPage({Key? key}) : super(key: key);
@@ -47,6 +50,18 @@ class _WidgetListPageState extends State<WidgetListPage> {
       _controller5.text = s;
     });
     print(s);
+  }
+
+  void func6(String s) {
+    if (FormatCheck.isDate(s, 'yyyy/MM/dd')) {
+      var outputFormat = DateFormat('yyyy/MM/dd');
+      final DateTime datetime = DateFormat('yyyy/MM/dd').parseStrict(s);
+      String d = outputFormat.format(datetime);
+      print(d);
+      print('pass');
+    } else {
+      print('invalid');
+    }
   }
 
   @override
@@ -190,7 +205,6 @@ class _WidgetListPageState extends State<WidgetListPage> {
               children: [
                 DateForm(
                   color: style.ThemeColor.primary,
-                  callback: (dateString) => func5(dateString),
                   controller: _controller5,
                   icon: Icons.accessible,
                   helperText: 'tttt',
@@ -201,7 +215,7 @@ class _WidgetListPageState extends State<WidgetListPage> {
                 Button(
                   color: Colors.amber,
                   text: 'Submit',
-                  callback: () => func2(_controller5.text),
+                  callback: () => func6(_controller5.text),
                   icon: Icons.baby_changing_station_sharp,
                   isFilled: true,
                 ),
