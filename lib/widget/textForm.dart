@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:peerrev/util/layout.dart';
 import 'package:peerrev/util/style.dart' as style;
+import 'package:peerrev/widget/exception.dart';
 
 class TextForm extends StatelessWidget {
   final Color color;
@@ -30,7 +31,8 @@ class TextForm extends StatelessWidget {
 
     if (isTextArea) {
       if (maxLines! <= 1) {
-        throw InvalidInputException('TextForm:maxLines should greater than 1');
+        throw InvalidInputException(
+            'TextForm:consider the arg:maxLines to set as null or >1');
       }
       iconYPosition = maxLines! * 19 + 2;
     }
@@ -72,20 +74,4 @@ class TextForm extends StatelessWidget {
       ),
     );
   }
-}
-
-class TextFormException implements Exception {
-  final _message;
-  final _prefix;
-
-  TextFormException([this._message, this._prefix]);
-
-  String toString() {
-    return '$_prefix$_message';
-  }
-}
-
-class InvalidInputException extends TextFormException {
-  InvalidInputException([String message = ''])
-      : super(message, 'Invalid input: ');
 }
