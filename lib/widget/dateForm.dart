@@ -31,7 +31,8 @@ class DateForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var outputFormat = DateFormat('yyyy/MM/dd');
+    const String dateFormat = 'yyyy/MM/dd';
+    var outputFormat = DateFormat(dateFormat);
 
     if (controller.text == '') {
       controller.text = outputFormat.format(DateTime.now());
@@ -45,9 +46,9 @@ class DateForm extends StatelessWidget {
               autovalidateMode: AutovalidateMode.always,
               child: TextFormField(
                   validator: (String? value) {
-                    return (FormatCheck.isDate(value!, 'yyyy/MM/dd'))
+                    return (FormatCheck.isDate(value!, dateFormat))
                         ? null
-                        : 'DateForm:input format is, yyyy/MM/dd';
+                        : 'DateForm:input format is, $dateFormat';
                   },
                   controller: controller,
                   onSaved: (String? value) {},
@@ -62,7 +63,7 @@ class DateForm extends StatelessWidget {
                         borderRadius: BorderRadius.all(
                             Radius.circular(Layout.commonBorderRadius)),
                       ),
-                      hintText: 'yyyy/MM/dd',
+                      hintText: dateFormat,
                       hintStyle: TextStyle(color: style.GrayColor.grey),
                       helperText: helperText,
                       helperMaxLines: helperMaxLines ?? 3,
