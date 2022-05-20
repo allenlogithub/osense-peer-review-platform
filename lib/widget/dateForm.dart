@@ -46,7 +46,7 @@ class DateForm extends StatelessWidget {
               autovalidateMode: AutovalidateMode.always,
               child: TextFormField(
                   validator: (String? value) {
-                    return (FormatCheck.isDate(value!, dateFormat))
+                    return (FormatCheck.isTime(value!, dateFormat))
                         ? null
                         : 'DateForm:input format is, $dateFormat';
                   },
