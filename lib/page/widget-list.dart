@@ -1,6 +1,5 @@
-import 'package:intl/intl.dart';
-
 import 'package:flutter/material.dart';
+import 'package:peerrev/util/formatChange.dart';
 
 import 'package:peerrev/widget/button.dart';
 import 'package:peerrev/widget/textForm.dart';
@@ -9,6 +8,7 @@ import 'package:peerrev/util/layout.dart';
 import 'package:peerrev/util/style.dart' as style;
 import 'package:peerrev/widget/dateForm.dart';
 import 'package:peerrev/util/formatCheck.dart';
+import 'package:peerrev/widget/timeForm.dart';
 
 class WidgetListPage extends StatefulWidget {
   const WidgetListPage({Key? key}) : super(key: key);
@@ -22,7 +22,8 @@ class _WidgetListPageState extends State<WidgetListPage> {
       _controller2,
       _controller3,
       _controller4,
-      _controller5;
+      _controller5,
+      _controller6;
   final List<dynamic> _items = [1, 'a', '#', 4, 'b', 'c', 'd'];
   late dynamic _selected = 1;
 
@@ -52,11 +53,9 @@ class _WidgetListPageState extends State<WidgetListPage> {
     print(s);
   }
 
-  void func6(String s) {
-    if (FormatCheck.isDate(s, 'yyyy/MM/dd')) {
-      var outputFormat = DateFormat('yyyy/MM/dd');
-      final DateTime datetime = DateFormat('yyyy/MM/dd').parseStrict(s);
-      String d = outputFormat.format(datetime);
+  void func6(String s, format) {
+    if (FormatCheck.isTime(s, format)) {
+      String d = FormatChange.getFormattedTimeString(s, format);
       print(d);
       print('pass');
     } else {
@@ -72,6 +71,7 @@ class _WidgetListPageState extends State<WidgetListPage> {
     _controller3 = TextEditingController();
     _controller4 = TextEditingController();
     _controller5 = TextEditingController();
+    _controller6 = TextEditingController();
   }
 
   @override
@@ -81,6 +81,7 @@ class _WidgetListPageState extends State<WidgetListPage> {
     _controller3.dispose();
     _controller4.dispose();
     _controller5.dispose();
+    _controller6.dispose();
     super.dispose();
   }
 
@@ -215,7 +216,27 @@ class _WidgetListPageState extends State<WidgetListPage> {
                 Button(
                   color: Colors.amber,
                   text: 'Submit',
-                  callback: () => func6(_controller5.text),
+                  callback: () => func6(_controller5.text, 'yyyy/MM/dd'),
+                  icon: Icons.baby_changing_station_sharp,
+                  isFilled: true,
+                ),
+              ],
+            ),
+            Column(
+              children: [
+                TimeForm(
+                  color: style.ThemeColor.primary,
+                  controller: _controller6,
+                  icon: Icons.ac_unit,
+                  helperText: 'mmmmm',
+                ),
+                const SizedBox(
+                  height: 10.0,
+                ),
+                Button(
+                  color: Colors.amber,
+                  text: 'Submit',
+                  callback: () => func6(_controller6.text, 'HH:mm'),
                   icon: Icons.baby_changing_station_sharp,
                   isFilled: true,
                 ),
