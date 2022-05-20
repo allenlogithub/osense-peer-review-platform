@@ -1,7 +1,7 @@
 import 'package:intl/intl.dart';
 
 class FormatCheck {
-  static bool isDate(String input, String format) {
+  static bool isTime(String input, String format) {
     try {
       final DateTime _ = DateFormat(format).parseStrict(input);
       return true;
