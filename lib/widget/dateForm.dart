@@ -18,14 +18,12 @@ class DateForm extends StatelessWidget {
   final Color color;
   final IconData? icon;
   final String? helperText;
-  final int? helperMaxLines;
   final TextEditingController controller;
   const DateForm({
     Key? key,
     required this.color,
     this.icon,
     this.helperText,
-    this.helperMaxLines,
     required this.controller,
   }) : super(key: key);
 
