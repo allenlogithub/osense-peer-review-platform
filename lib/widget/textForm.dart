@@ -9,7 +9,6 @@ class TextForm extends StatelessWidget {
   final IconData? icon;
   final String? labelText;
   final String? helperText;
-  final int? helperMaxLines;
   final int? maxLines;
   final TextEditingController controller;
 
@@ -19,14 +18,12 @@ class TextForm extends StatelessWidget {
     this.icon,
     this.labelText,
     this.helperText,
-    this.helperMaxLines,
     this.maxLines,
     required this.controller,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    double iconYPosition = 0;
     bool isTextArea = (maxLines != null);
 
     if (isTextArea) {
@@ -34,44 +31,89 @@ class TextForm extends StatelessWidget {
         throw InvalidInputException(
             'TextForm:consider the arg:maxLines to set as null or >1');
       }
-      iconYPosition = maxLines! * 19 + 2;
     }
 
-    return TextField(
-      controller: controller,
-      maxLines: maxLines,
-      decoration: InputDecoration(
-        border: OutlineInputBorder(
-          borderRadius:
-              BorderRadius.all(Radius.circular(Layout.commonBorderRadius)),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: color, width: Layout.commonBorderWidth),
-          borderRadius:
-              BorderRadius.all(Radius.circular(Layout.commonBorderRadius)),
-        ),
-        hintText: labelText,
-        hintStyle: TextStyle(color: style.GrayColor.grey),
-        helperText: helperText,
-        helperMaxLines: helperMaxLines ?? 3,
-        helperStyle: TextStyle(color: color),
-        suffixIcon: isTextArea
-            ? Column(
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        DecoratedBox(
+          decoration: BoxDecoration(
+            borderRadius:
+                BorderRadius.all(Radius.circular(Layout.commonBorderRadius)),
+            border: Border.all(
+              color: color,
+              width: Layout.commonBorderWidth,
+            ),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Stack(
                 children: [
-                  SizedBox(
-                    height: iconYPosition,
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          controller: controller,
+                          maxLines: maxLines ?? 1,
+                          decoration: InputDecoration(
+                            border: const OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                            ),
+                            hintText: labelText,
+                            hintStyle: style.Text.normH5
+                                .copyWith(color: style.GrayColor.grey),
+                          ),
+                          style: style.Text.normH5.copyWith(
+                            color: style.GrayColor.black,
+                          ),
+                        ),
+                      ),
+                      if (!isTextArea) ...[
+                        Container(
+                          padding: EdgeInsets.only(
+                            top: Layout.commonPadding / 2,
+                            right: Layout.commonPadding,
+                            bottom: Layout.commonPadding / 2,
+                          ),
+                          child: Icon(
+                            icon,
+                            color: color,
+                            size: Layout.iconSize,
+                          ),
+                        ),
+                      ],
+                    ],
                   ),
-                  Icon(
-                    icon,
-                    color: color,
-                  ),
+                  if (isTextArea) ...[
+                    Positioned(
+                      right: Layout.commonPadding / 2,
+                      bottom: Layout.commonPadding / 2,
+                      child: Icon(
+                        icon,
+                        color: color,
+                        size: Layout.iconSize,
+                      ),
+                    ),
+                  ],
                 ],
-              )
-            : Icon(
-                icon,
-                color: color,
               ),
-      ),
+            ],
+          ),
+        ),
+        if (helperText != null) ...[
+          Container(
+            padding: EdgeInsets.only(
+              top: Layout.widgetSpace,
+            ),
+            child: Text(
+              helperText!,
+              style: style.Text.normH5.copyWith(color: color),
+            ),
+          ),
+        ],
+      ],
     );
   }
 }

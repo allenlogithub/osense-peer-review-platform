@@ -171,7 +171,6 @@ class _WidgetListPageState extends State<WidgetListPage> {
                   color: style.ThemeColor.primary,
                   labelText: 'label',
                   helperText: 'message: msgmsgmsgmsgmsgmsgmsgmsg',
-                  helperMaxLines: 1,
                 ),
                 const Spacer(),
                 TextForm(
@@ -207,7 +206,8 @@ class _WidgetListPageState extends State<WidgetListPage> {
                 TextForm(
                   color: style.ThemeColor.primary,
                   controller: _controller4,
-                  maxLines: 7,
+                  maxLines: 5,
+                  helperText: '123',
                   icon: Icons.ac_unit,
                 ),
                 const SizedBox(
