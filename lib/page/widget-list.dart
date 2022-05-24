@@ -196,6 +196,12 @@ class _WidgetListPageState extends State<WidgetListPage> {
               color: style.ThemeColor.primary,
               icon: Icons.access_alarm,
             ),
+            SelectForm(
+              items: _items,
+              selected: _selected,
+              callback: (_selected) => func4(_selected),
+              color: style.ThemeColor.primary,
+            ),
             Column(
               children: [
                 TextForm(

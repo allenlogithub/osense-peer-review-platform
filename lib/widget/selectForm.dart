@@ -28,27 +28,38 @@ class SelectForm extends StatelessWidget {
             borderRadius:
                 BorderRadius.all(Radius.circular(Layout.commonBorderRadius)),
           ),
-          contentPadding: const EdgeInsets.only(left: 20.0, right: 10.0),
+          contentPadding: EdgeInsets.only(
+              left: Layout.commonPadding, right: Layout.commonPadding),
         ),
         child: Row(
           children: [
             Expanded(
               child: DropdownButton(
                 value: selected,
-                icon: Icon(icon),
+                icon: icon != null
+                    ? Icon(
+                        icon,
+                        color: color,
+                        size: Layout.iconSize,
+                      )
+                    : const Icon(
+                        Icons.abc,
+                        color: Colors.transparent,
+                      ),
                 items: items.map<DropdownMenuItem<dynamic>>((dynamic value) {
                   return DropdownMenuItem<dynamic>(
                       value: value,
                       child: value != selected
                           ? Text(
                               value.toString(),
-                              style: TextStyle(color: style.GrayColor.grey),
+                              style: style.Text.normH5.copyWith(color: color),
                             )
                           : Text(value.toString()));
                 }).toList(),
                 onChanged: (dynamic newValue) {
                   callback(newValue!);
                 },
+                style: style.Text.normH5.copyWith(color: style.GrayColor.black),
                 isExpanded: true,
                 autofocus: true,
                 borderRadius: BorderRadius.all(
@@ -61,6 +72,7 @@ class SelectForm extends StatelessWidget {
             Icon(
               Icons.arrow_drop_down_rounded,
               color: color,
+              size: Layout.iconSize,
             ),
           ],
         ));
