@@ -4,4 +4,6 @@ class Layout {
   static double crossAxisSpacing = 10.0;
   static double commonBorderWidth = 3.0;
   static double commonBorderRadius = 10.0;
+  static double iconSize = 24.0;
+  static double widgetSpace = 8.0;
 }

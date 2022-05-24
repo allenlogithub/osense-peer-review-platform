@@ -265,6 +265,8 @@ class _WidgetListPageState extends State<WidgetListPage> {
                 NumberForm(
                   controller: _controller7,
                   color: style.ThemeColor.primary,
+                  icon: Icons.zoom_out_sharp,
+                  helperText: '1234567890123456789012345678901234567890',
                 )
               ],
             ),
