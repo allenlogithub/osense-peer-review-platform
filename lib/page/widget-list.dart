@@ -108,7 +108,7 @@ class _WidgetListPageState extends State<WidgetListPage> {
       body: Container(
         padding: EdgeInsets.all(Layout.commonPadding),
         child: GridView.count(
-          crossAxisCount: 7,
+          crossAxisCount: 5,
           mainAxisSpacing: Layout.mainAxisSpacing,
           crossAxisSpacing: Layout.crossAxisSpacing,
           children: [
@@ -233,6 +233,11 @@ class _WidgetListPageState extends State<WidgetListPage> {
                   callback: () => func6(_controller5.text, 'yyyy/MM/dd'),
                   icon: Icons.baby_changing_station_sharp,
                   isFilled: true,
+                ),
+                DateForm(
+                  color: style.ThemeColor.primary,
+                  controller: _controller5,
+                  helperText: 'tttt',
                 ),
               ],
             ),

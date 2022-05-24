@@ -38,64 +38,90 @@ class DateForm extends StatelessWidget {
       controller.text = outputFormat.format(DateTime.now());
     }
 
-    return Row(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Expanded(
-          child: FocusTraversalGroup(
-            child: Form(
-              autovalidateMode: AutovalidateMode.always,
-              child: TextFormField(
-                  validator: (String? value) {
-                    return (FormatCheck.isTime(value!, dateFormat))
-                        ? null
-                        : 'DateForm:input format is, $dateFormat';
-                  },
-                  controller: controller,
-                  onSaved: (String? value) {},
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(
-                            Radius.circular(Layout.commonBorderRadius)),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: color, width: Layout.commonBorderWidth),
-                        borderRadius: BorderRadius.all(
-                            Radius.circular(Layout.commonBorderRadius)),
-                      ),
-                      hintText: dateFormat,
-                      hintStyle: TextStyle(color: style.GrayColor.grey),
-                      helperText: helperText,
-                      helperMaxLines: helperMaxLines ?? 3,
-                      helperStyle: TextStyle(color: color),
-                      suffixIcon: Container(
-                        child: IconButton(
-                            icon: Icon(
-                              Icons.calendar_today_outlined,
-                              color: color,
-                            ),
-                            onPressed: () async {
-                              final datetime = await showDatePicker(
-                                initialDate: DateTime.now(),
-                                firstDate: DateTime(2022, 01),
-                                lastDate: DateTime(2099, 12),
-                                context: context,
-                                initialEntryMode:
-                                    DatePickerEntryMode.calendarOnly,
-                              );
-                              controller.text = outputFormat.format(datetime!);
-                            }),
-                      ))),
+        Row(
+          children: [
+            Expanded(
+              child: FocusTraversalGroup(
+                child: Form(
+                  autovalidateMode: AutovalidateMode.always,
+                  child: TextFormField(
+                      validator: (String? value) {
+                        return (FormatCheck.isTime(value!, dateFormat))
+                            ? null
+                            : 'DateForm:input format is, $dateFormat';
+                      },
+                      controller: controller,
+                      onSaved: (String? value) {},
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                              Radius.circular(Layout.commonBorderRadius)),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: color, width: Layout.commonBorderWidth),
+                          borderRadius: BorderRadius.all(
+                              Radius.circular(Layout.commonBorderRadius)),
+                        ),
+                        hintText: dateFormat,
+                        hintStyle: style.Text.normH5
+                            .copyWith(color: style.GrayColor.grey),
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            Icons.calendar_today_outlined,
+                            color: color,
+                            size: Layout.iconSize,
+                          ),
+                          onPressed: () async {
+                            final datetime = await showDatePicker(
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(2022, 01),
+                              lastDate: DateTime(2099, 12),
+                              context: context,
+                              initialEntryMode:
+                                  DatePickerEntryMode.calendarOnly,
+                            );
+                            controller.text = outputFormat.format(datetime!);
+                          },
+                          padding: EdgeInsets.only(
+                            right: Layout.commonPadding,
+                            bottom: Layout.commonPadding,
+                            top: Layout.commonPadding,
+                          ),
+                        ),
+                        contentPadding: EdgeInsets.only(
+                          left: Layout.commonPadding,
+                          top: Layout.commonPadding,
+                          bottom: Layout.commonPadding,
+                        ),
+                      )),
+                ),
+              ),
             ),
+            if (icon != null) ...[
+              SizedBox(
+                width: Layout.widgetSpace,
+              ),
+              Icon(
+                icon,
+                color: color,
+                size: Layout.iconSize,
+              ),
+            ],
+          ],
+        ),
+        if (helperText != null) ...[
+          SizedBox(
+            height: Layout.widgetSpace,
           ),
-        ),
-        const SizedBox(
-          width: 5.0,
-        ),
-        Icon(
-          icon,
-          color: color,
-        ),
+          Text(
+            helperText!,
+            style: style.Text.normH5.copyWith(color: color),
+          ),
+        ],
       ],
     );
   }
