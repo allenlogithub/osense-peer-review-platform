@@ -119,6 +119,17 @@ class _WidgetListPageState extends State<WidgetListPage> {
               icon: Icons.ac_unit,
               isFilled: true,
             ),
+            Column(
+              children: [
+                Button(
+                  color: style.ThemeColor.primary,
+                  text: '2',
+                  callback: () => func(2),
+                  icon: Icons.ac_unit,
+                  isFilled: false,
+                ),
+              ],
+            ),
             Button(
               color: style.ThemeColor.primary,
               text: '2',

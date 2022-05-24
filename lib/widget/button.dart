@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:peerrev/util/layout.dart';
+import 'package:peerrev/util/style.dart' as style;
 
 class Button extends StatelessWidget {
   final Color color;
@@ -21,46 +22,48 @@ class Button extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () => callback(),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          if (icon != null) ...[
-            Icon(icon),
-          ],
-          Text(text),
-        ],
-      ),
-      style: isFilled
-          ? ButtonStyle(
-              backgroundColor: MaterialStateProperty.all<Color>(color),
-              foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-              side: MaterialStateProperty.all<BorderSide>(
-                BorderSide(
-                  width: Layout.commonBorderWidth,
-                  color: color,
-                ),
+      child: Container(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            if (icon != null) ...[
+              Icon(
+                icon,
+                size: Layout.iconSize,
               ),
-              shape: MaterialStateProperty.all<OutlinedBorder>(
-                RoundedRectangleBorder(
-                  borderRadius:
-                      BorderRadius.circular(Layout.commonBorderRadius),
-                ),
-              ),
-            )
-          : ButtonStyle(
-              backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
-              foregroundColor: MaterialStateProperty.all<Color>(color),
-              side: MaterialStateProperty.all<BorderSide>(BorderSide(
-                width: Layout.commonBorderWidth,
-                color: color,
-              )),
-              shape: MaterialStateProperty.all<OutlinedBorder>(
-                RoundedRectangleBorder(
-                  borderRadius:
-                      BorderRadius.circular(Layout.commonBorderRadius),
-                ),
-              ),
+            ],
+            Text(
+              text,
+              style: style.Text.normH4,
             ),
+          ],
+        ),
+        padding: EdgeInsets.only(
+          top: Layout.commonPadding / 2,
+          bottom: Layout.commonPadding / 2,
+          left: Layout.commonPadding / 2,
+          right: Layout.commonPadding / 2,
+        ),
+      ),
+      style: ButtonStyle(
+        backgroundColor: isFilled
+            ? MaterialStateProperty.all<Color>(color)
+            : MaterialStateProperty.all<Color>(Colors.white),
+        foregroundColor: isFilled
+            ? MaterialStateProperty.all<Color>(Colors.white)
+            : MaterialStateProperty.all<Color>(color),
+        side: MaterialStateProperty.all<BorderSide>(
+          BorderSide(
+            width: Layout.commonBorderWidth,
+            color: color,
+          ),
+        ),
+        shape: MaterialStateProperty.all<OutlinedBorder>(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(Layout.commonBorderRadius),
+          ),
+        ),
+      ),
     );
   }
 }
