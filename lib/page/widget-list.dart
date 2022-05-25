@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:peerrev/util/formatChange.dart';
 import 'package:peerrev/widget/button.dart';
@@ -10,6 +11,7 @@ import 'package:peerrev/widget/dateForm.dart';
 import 'package:peerrev/util/formatCheck.dart';
 import 'package:peerrev/widget/timeForm.dart';
 import 'package:peerrev/widget/numberForm.dart';
+import 'package:peerrev/widget/toast.dart' as t;
 
 class WidgetListPage extends StatefulWidget {
   const WidgetListPage({Key? key}) : super(key: key);
@@ -28,6 +30,7 @@ class _WidgetListPageState extends State<WidgetListPage> {
       _controller7;
   final List<dynamic> _items = [1, 'a', '#', 4, 'b', 'c', 'd'];
   late dynamic _selected = 1;
+  late FToast fToast;
 
   void func(int num) {
     print(num);
@@ -65,16 +68,6 @@ class _WidgetListPageState extends State<WidgetListPage> {
     }
   }
 
-  // void plus() {
-  //   // controller.text = (int.parse(controller.text) + 1).toString();
-  //   print('plus');
-  // }
-
-  // void minus() {
-  //   // controller.text = (int.parse(controller.text) - 1).toString();
-  //   print('minus');
-  // }
-
   @override
   void initState() {
     super.initState();
@@ -85,6 +78,8 @@ class _WidgetListPageState extends State<WidgetListPage> {
     _controller5 = TextEditingController();
     _controller6 = TextEditingController();
     _controller7 = TextEditingController();
+    fToast = FToast();
+    fToast.init(context);
   }
 
   @override
@@ -297,6 +292,37 @@ class _WidgetListPageState extends State<WidgetListPage> {
                 )
               ],
             ),
+            Column(
+              children: [
+                Button(
+                  color: Colors.amber,
+                  text: 'Error Toast',
+                  callback: () => t.Toast(
+                    text: 'Error Error Error Error Error Error',
+                    color: style.StatusColor.error,
+                    bgColor: style.StatusColor.bgError,
+                    icon: Icons.error,
+                  ).showToast(fToast),
+                  icon: Icons.add,
+                  isFilled: true,
+                ),
+                const SizedBox(
+                  height: 20.0,
+                ),
+                Button(
+                  color: Colors.amber,
+                  text: 'Success Toast',
+                  callback: () => t.Toast(
+                    text: 'Success Success Success Success Success Success',
+                    color: style.StatusColor.success,
+                    bgColor: style.StatusColor.bgSuccess,
+                    duration: 7,
+                  ).showToast(fToast),
+                  icon: Icons.remove,
+                  isFilled: true,
+                ),
+              ],
+            )
           ],
         ),
       ),
