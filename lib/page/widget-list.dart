@@ -12,6 +12,7 @@ import 'package:peerrev/util/formatCheck.dart';
 import 'package:peerrev/widget/timeForm.dart';
 import 'package:peerrev/widget/numberForm.dart';
 import 'package:peerrev/widget/toast.dart' as t;
+import 'package:peerrev/widget/scoreIndicator.dart';
 
 class WidgetListPage extends StatefulWidget {
   const WidgetListPage({Key? key}) : super(key: key);
@@ -322,7 +323,23 @@ class _WidgetListPageState extends State<WidgetListPage> {
                   isFilled: true,
                 ),
               ],
-            )
+            ),
+            ScoreIndicator(
+              color: style.StatusColor.error,
+              bgColor: style.StatusColor.bgError,
+              value: 4.0,
+              maximum: 5.0,
+              radius: 20,
+              width: 5,
+            ),
+            ScoreIndicator(
+              color: style.StatusColor.error,
+              bgColor: style.StatusColor.bgError,
+              value: 3.5,
+              maximum: 5.0,
+              radius: 20,
+              width: 5,
+            ),
           ],
         ),
       ),
