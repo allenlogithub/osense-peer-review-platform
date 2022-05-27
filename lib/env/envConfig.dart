@@ -8,7 +8,7 @@ class Constants {
       const String.fromEnvironment("GOOGLE_SIGN_IN_CLIENT_ID");
 
   static String apiKey = const String.fromEnvironment("API_KEY");
-  static String appId = const String.fromEnvironment("APIKEY");
+  static String appId = const String.fromEnvironment("API_ID");
   static String messagingSenderId =
       const String.fromEnvironment("MESSAGING_SENDER_ID");
   static String projectId = const String.fromEnvironment("PROJECT_ID");
