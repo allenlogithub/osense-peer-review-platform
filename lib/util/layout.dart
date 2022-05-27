@@ -6,4 +6,5 @@ class Layout {
   static double commonBorderRadius = 10.0;
   static double iconSize = 24.0;
   static double widgetSpace = 8.0;
+  static double drawerIconInterval = 24;
 }
