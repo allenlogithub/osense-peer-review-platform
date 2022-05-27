@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:peerrev/main.dart';
 
 class RefreshPage extends StatelessWidget {
@@ -22,8 +23,8 @@ class RefreshPage extends StatelessWidget {
           ),
           ElevatedButton(
               child: const Text('Retry'),
-              onPressed: () => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => InitializationApp())))
+              onPressed: () => Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => App())))
         ],
       ),
     );
