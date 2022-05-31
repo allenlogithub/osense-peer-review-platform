@@ -5,6 +5,8 @@ import 'package:peerrev/bloc/auth/auth_bloc.dart';
 import 'package:peerrev/page/main.dart';
 import 'package:peerrev/bloc/naviDrawer/navidrawer_bloc.dart';
 import 'package:peerrev/data/repo/auth.dart';
+import 'package:peerrev/bloc/staffPanel/staffpanel_bloc.dart';
+import 'package:peerrev/data/repo/reviewedScore.dart';
 
 class SignIn extends StatelessWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -31,6 +33,10 @@ class SignIn extends StatelessWidget {
                         create: (context) => AuthBloc(
                           authRepo: RepositoryProvider.of<AuthRepo>(context),
                         ),
+                      ),
+                      BlocProvider<StaffpanelBloc>(
+                        create: (context) =>
+                            StaffpanelBloc(reviewedScore: ReviewedScore()),
                       ),
                     ],
                     child: const MainPage(),

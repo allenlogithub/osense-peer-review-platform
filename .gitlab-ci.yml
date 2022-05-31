@@ -4,7 +4,7 @@ stages:
   - deploy
 
 variables:
-  PROJ_VERSION: v0.0.7
+  PROJ_VERSION: v0.0.8
   TAG_LATEST: devops.oexpo.io/$PROJECT_NAME/$IMAGE_NAME:latest
   TAG_CURR: devops.oexpo.io/$PROJECT_NAME/$IMAGE_NAME:$PROJ_VERSION
 

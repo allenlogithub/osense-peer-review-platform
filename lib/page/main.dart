@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:peerrev/widget/drawer/naviDrawer.dart';
+import 'package:peerrev/widget/staff/staff.dart';
 import 'package:peerrev/util/style.dart' as style;
 
 class MainPage extends StatelessWidget {
@@ -10,24 +11,19 @@ class MainPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: style.ThemeColor.primary,
-      body: Row(
+      body: Stack(
         children: [
-          const SizedBox(
-            width: 20.0,
-          ),
-          Column(
+          Row(
             children: [
-              const SizedBox(
-                height: 50.0,
-              ),
-              Expanded(
-                child: NavigationDrawer(),
-              ),
-              const SizedBox(
-                height: 50.0,
+              StaffPanel(
+                isReviewListVisible: false,
               ),
             ],
-          )
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 50, top: 50, left: 32),
+            child: NavigationDrawer(),
+          ),
         ],
       ),
     );

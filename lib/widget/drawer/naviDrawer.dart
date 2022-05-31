@@ -7,6 +7,7 @@ import 'package:peerrev/widget/drawer/naviDrawerModel.dart';
 import 'package:peerrev/bloc/naviDrawer/navidrawer_bloc.dart';
 import 'package:peerrev/util/layout.dart';
 import 'package:peerrev/util/style.dart' as style;
+import 'package:peerrev/bloc/staffPanel/staffpanel_bloc.dart';
 
 class NavigationDrawer extends StatelessWidget {
   final padding = EdgeInsets.symmetric(horizontal: 20);
@@ -100,6 +101,7 @@ class NavigationDrawer extends StatelessWidget {
       case 0:
         print(0);
         // navigateTo(GetStartedPage());
+        context.read<StaffpanelBloc>().add(PanelVisibilitySwitchedEvent());
         break;
       case 1:
         print(1);
