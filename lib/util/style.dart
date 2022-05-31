@@ -54,3 +54,13 @@ class Text {
   static TextStyle boldH6 =
       const TextStyle(fontWeight: FontWeight.bold, fontSize: 14);
 }
+
+class DeptColor {
+  static Color dept1 = const Color.fromRGBO(102, 180, 175, 1.0);
+  static Color dept2 = const Color.fromRGBO(242, 166, 59, 1.0);
+  static Color dept3 = const Color.fromRGBO(237, 116, 112, 1.0);
+  static Color dept4 = const Color.fromRGBO(125, 193, 220, 1.0);
+  static Color dept5 = const Color.fromRGBO(136, 136, 136, 1.0);
+  static Color dept6 = const Color.fromRGBO(162, 206, 211, 1.0);
+  static Color dept7 = const Color.fromRGBO(212, 179, 174, 1.0);
+}
