@@ -5,15 +5,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:peerrev/widget/drawer/naviDrawerItem.dart';
 import 'package:peerrev/widget/drawer/naviDrawerModel.dart';
 import 'package:peerrev/bloc/naviDrawer/navidrawer_bloc.dart';
-import 'package:peerrev/util/layout.dart';
+import 'package:peerrev/util/layout.dart' as layout;
 import 'package:peerrev/util/style.dart' as style;
 import 'package:peerrev/bloc/staffPanel/staffpanel_bloc.dart';
 
 class NavigationDrawer extends StatelessWidget {
-  final padding = EdgeInsets.symmetric(horizontal: 20);
   final color = style.ThemeColor.primary;
   final bgColor = style.ThemeColor.bgPrimary;
-  final commonBorderRadius = Layout.commonBorderRadius;
+  final commonBorderRadius = layout.Layout.commonBorderRadius;
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +23,7 @@ class NavigationDrawer extends StatelessWidget {
       bool isCollapsed = state;
 
       return Container(
-        // width: isCollapsed ? MediaQuery.of(context).size.width * 0.05 : null,
-        width: isCollapsed ? 102 : null,
+        width: isCollapsed ? layout.Size.blockSizeHorizontal * 6 : null,
         child: ClipRRect(
           borderRadius: BorderRadius.vertical(
             top: Radius.circular(commonBorderRadius),
@@ -36,20 +34,19 @@ class NavigationDrawer extends StatelessWidget {
               color: bgColor,
               child: Column(
                 children: [
-                  // SizedBox(height: 32.0),
                   Container(
-                    padding: EdgeInsets.symmetric(vertical: 32.0).add(safeArea),
-                    width: double.infinity,
+                    padding: EdgeInsets.symmetric(
+                            vertical: layout.Size.blockSizeVertical * 4)
+                        .add(safeArea),
                     color: Colors.white12,
                     child: buildHeader(context, isCollapsed),
                   ),
-                  // SizedBox(height: 32.0),
                   Divider(color: color),
-                  SizedBox(height: 32.0),
+                  SizedBox(height: layout.Size.blockSizeVertical * 4),
                   buildList(items: itemsFirst, isCollapsed: isCollapsed),
-                  SizedBox(height: Layout.drawerIconInterval),
+                  SizedBox(height: layout.Layout.drawerIconInterval),
                   Divider(color: color),
-                  SizedBox(height: Layout.drawerIconInterval),
+                  SizedBox(height: layout.Layout.drawerIconInterval),
                   buildList(
                     indexOffset: itemsFirst.length,
                     items: itemsSecond,
@@ -57,7 +54,7 @@ class NavigationDrawer extends StatelessWidget {
                   ),
                   const Spacer(),
                   buildCollapseIcon(context, isCollapsed),
-                  const SizedBox(height: 12),
+                  SizedBox(height: layout.Size.blockSizeVertical),
                 ],
               ),
             ),
@@ -73,11 +70,15 @@ class NavigationDrawer extends StatelessWidget {
     int indexOffset = 0,
   }) =>
       ListView.separated(
-        padding: isCollapsed ? EdgeInsets.zero : padding,
+        padding: isCollapsed
+            ? EdgeInsets.zero
+            : EdgeInsets.symmetric(
+                horizontal: layout.Size.blockSizeHorizontal * 1),
         shrinkWrap: true,
         primary: false,
         itemCount: items.length,
-        separatorBuilder: (context, index) => SizedBox(height: 16),
+        separatorBuilder: (context, index) =>
+            SizedBox(height: layout.Size.blockSizeVertical * 1),
         itemBuilder: (context, index) {
           final item = items[index];
 
@@ -131,7 +132,11 @@ class NavigationDrawer extends StatelessWidget {
     VoidCallback? onClicked,
   }) {
     final color = style.ThemeColor.primary;
-    final leading = Icon(icon, color: color);
+    final leading = Icon(
+      icon,
+      color: color,
+      size: layout.Size.blockSize * 3,
+    );
 
     return Material(
       color: Colors.transparent,
@@ -149,10 +154,12 @@ class NavigationDrawer extends StatelessWidget {
   }
 
   Widget buildCollapseIcon(BuildContext context, bool isCollapsed) {
-    final double size = 52;
+    final double size = layout.Size.blockSize * 5;
     final icon = isCollapsed ? Icons.arrow_forward_ios : Icons.arrow_back_ios;
     final alignment = isCollapsed ? Alignment.center : Alignment.centerRight;
-    final margin = isCollapsed ? null : EdgeInsets.only(right: 16);
+    final margin = isCollapsed
+        ? null
+        : EdgeInsets.only(right: layout.Size.blockSizeHorizontal * 2);
     final width = isCollapsed ? double.infinity : size;
 
     return Container(
@@ -183,23 +190,29 @@ class NavigationDrawer extends StatelessWidget {
     if (isCollapsed) {
       return Row(
         children: [
-          SizedBox(width: 16),
-          SizedBox(
-            child: img != null ? img : Icon(Icons.person),
-            width: 70.0,
+          SizedBox(width: layout.Size.blockSizeHorizontal * 1),
+          Center(
+            child: SizedBox(
+              child: img != null ? img : Icon(Icons.person),
+              width: layout.Size.blockSize * 7,
+              height: layout.Size.blockSize * 12,
+            ),
           ),
-          SizedBox(width: 16),
+          SizedBox(width: layout.Size.blockSizeHorizontal * 1),
         ],
       );
     } else {
       return Row(
         children: [
-          SizedBox(width: 16),
-          SizedBox(
-            child: img != null ? img : Icon(Icons.person),
-            width: 70.0,
+          SizedBox(width: layout.Size.blockSizeHorizontal * 1),
+          Center(
+            child: SizedBox(
+              child: img != null ? img : Icon(Icons.person),
+              width: layout.Size.blockSize * 7,
+              height: layout.Size.blockSize * 12,
+            ),
           ),
-          SizedBox(width: 16),
+          SizedBox(width: layout.Size.blockSizeHorizontal * 1),
           if (name != null) ...[
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -210,11 +223,12 @@ class NavigationDrawer extends StatelessWidget {
                 ),
                 Text(
                   'NAPICall',
-                  style: style.Text.normH6.copyWith(),
+                  style: style.Text.normH5.copyWith(),
                 ),
                 Text(
                   email.toString(),
                   style: style.Text.normH6.copyWith(),
+                  overflow: TextOverflow.fade,
                 ),
               ],
             ),

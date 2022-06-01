@@ -7,12 +7,15 @@ import 'package:peerrev/bloc/naviDrawer/navidrawer_bloc.dart';
 import 'package:peerrev/data/repo/auth.dart';
 import 'package:peerrev/bloc/staffPanel/staffpanel_bloc.dart';
 import 'package:peerrev/data/repo/reviewedScore.dart';
+import 'package:peerrev/util/layout.dart' as layout;
 
 class SignIn extends StatelessWidget {
   const SignIn({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    layout.Size().init(context);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("SignIn"),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:peerrev/widget/drawer/naviDrawer.dart';
 import 'package:peerrev/widget/staff/staff.dart';
 import 'package:peerrev/util/style.dart' as style;
+import 'package:peerrev/util/layout.dart' as layout;
 
 class MainPage extends StatelessWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -21,7 +22,11 @@ class MainPage extends StatelessWidget {
             ],
           ),
           Padding(
-            padding: const EdgeInsets.only(bottom: 50, top: 50, left: 32),
+            padding: EdgeInsets.only(
+              bottom: layout.Size.blockSizeVertical * 5,
+              top: layout.Size.blockSizeVertical * 5,
+              left: layout.Size.blockSizeHorizontal * 3,
+            ),
             child: NavigationDrawer(),
           ),
         ],
