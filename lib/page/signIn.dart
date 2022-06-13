@@ -8,6 +8,7 @@ import 'package:peerrev/data/repo/auth.dart';
 import 'package:peerrev/bloc/staffPanel/staffpanel_bloc.dart';
 import 'package:peerrev/data/repo/reviewedScore.dart';
 import 'package:peerrev/util/layout.dart' as layout;
+import 'package:peerrev/bloc/reviewEditor.dart/revieweditor_bloc.dart';
 
 class SignIn extends StatelessWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -41,6 +42,8 @@ class SignIn extends StatelessWidget {
                         create: (context) =>
                             StaffpanelBloc(reviewedScore: ReviewedScore()),
                       ),
+                      BlocProvider<RevieweditorBloc>(
+                          create: (context) => RevieweditorBloc()),
                     ],
                     child: const MainPage(),
                   );

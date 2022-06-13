@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:peerrev/data/repo/reviewedScore.dart';
 import 'package:peerrev/util/style.dart' as style;
@@ -6,6 +7,7 @@ import 'package:peerrev/widget/tag.dart';
 import 'package:peerrev/widget/scoreIndicator.dart';
 import 'package:peerrev/util/layout.dart' as layout;
 import 'package:peerrev/widget/roundedBox.dart';
+import 'package:peerrev/bloc/reviewEditor.dart/revieweditor_bloc.dart';
 
 class ReviewList extends StatelessWidget {
   ReviewList({Key? key}) : super(key: key);
@@ -63,8 +65,8 @@ class ReviewList extends StatelessWidget {
       for (int j = 0; j < score.length; j++) {
         _socreIndicators.add(
           ScoreIndicator(
-            color: _colorList.colorList[j],
-            bgColor: _colorList.bgColorList[j],
+            color: ColorList.colorList[j],
+            bgColor: ColorList.bgColorList[j],
             radius: layout.Size.blockSize * 3,
             width: layout.Size.blockSize,
             value: double.parse(score[j]),
@@ -113,8 +115,8 @@ class ReviewList extends StatelessWidget {
             SizedBox(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  _iconBtn(icon: Icons.edit, callback: _edit),
+                children: [
+                  _iconBtn(icon: Icons.edit, callback: () => _edit(context)),
                   _iconBtn(icon: Icons.delete, callback: _delete),
                 ],
               ),
@@ -162,8 +164,9 @@ void _delete() {
   print('delete');
 }
 
-void _edit() {
+void _edit(BuildContext context) {
   print('edit');
+  context.read<RevieweditorBloc>().add(RevieweditorVisibilitySwitchedEvent());
 }
 
 class _iconBtn extends StatelessWidget {
@@ -198,13 +201,19 @@ class _deptColorMap {
   };
 }
 
-class _colorList {
+class ColorList {
   static var colorList = [
     const Color.fromRGBO(102, 180, 175, 1.0),
     const Color.fromRGBO(242, 166, 59, 1.0),
     const Color.fromRGBO(237, 116, 112, 1.0),
     const Color.fromRGBO(125, 193, 220, 1.0),
     const Color.fromRGBO(136, 136, 136, 1.0),
+    const Color.fromRGBO(162, 206, 211, 1.0),
+    const Color.fromRGBO(212, 179, 174, 1.0),
+    const Color.fromRGBO(162, 20, 21, 1.0),
+    const Color.fromRGBO(16, 206, 211, 1.0),
+    const Color.fromRGBO(162, 206, 11, 1.0),
+    const Color.fromRGBO(162, 26, 211, 1.0),
   ];
   static var bgColorList = [
     const Color.fromRGBO(102, 180, 175, 0.25),
@@ -232,17 +241,9 @@ final rowSpacer = TableRow(children: [
 
 TableRow _rowSpacer({spaceUnit = 1}) {
   return TableRow(children: [
-    SizedBox(
-      height: layout.Size.blockSizeVertical * spaceUnit,
-    ),
-    SizedBox(
-      height: layout.Size.blockSizeVertical * spaceUnit,
-    ),
-    SizedBox(
-      height: layout.Size.blockSizeVertical * spaceUnit,
-    ),
-    SizedBox(
-      height: layout.Size.blockSizeVertical * spaceUnit,
-    ),
+    SizedBox(height: layout.Size.blockSizeVertical * spaceUnit),
+    SizedBox(height: layout.Size.blockSizeVertical * spaceUnit),
+    SizedBox(height: layout.Size.blockSizeVertical * spaceUnit),
+    SizedBox(height: layout.Size.blockSizeVertical * spaceUnit),
   ]);
 }

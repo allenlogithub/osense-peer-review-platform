@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class ThemeColor {
   static Color primary = const Color.fromRGBO(128, 206, 211, 1.0);
   static Color secondary = const Color.fromRGBO(170, 138, 116, 1.0);
-  static Color bgPrimary = const Color.fromRGBO(162, 206, 211, 0.25);
+  static Color bgPrimary = const Color.fromRGBO(232, 243, 244, 1.0);
   static Color bgSecondary = const Color.fromRGBO(170, 138, 116, 0.25);
 }
 
